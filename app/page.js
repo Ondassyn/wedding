@@ -75,7 +75,7 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoaded(true);
-    }, 2000);
+    }, 4000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -264,7 +264,14 @@ export default function Home() {
               </div>
 
               {/* Right half - Image */}
-              <div className="lg:w-1/2 w-screen h-screen relative">
+              <motion.div
+                key="main_img"
+                initial={{ opacity: 0, y: "0%" }}
+                animate={{ opacity: 1 }}
+                exit={{ y: "-100%", opacity: 0 }}
+                transition={{ duration: 3, ease: [0.22, 1, 0.36, 1] }}
+                className="lg:w-1/2 w-screen h-screen relative"
+              >
                 {isMobile && (
                   <div className="absolute bottom-0 left-[45%] z-10">
                     <ChevronDownIcon className="h-16 animate-bounce text-white" />
@@ -277,7 +284,7 @@ export default function Home() {
                   className="object-cover"
                   priority
                 />
-              </div>
+              </motion.div>
             </div>
             <section className="panel h-full lg:h-screen flex flex-col-reverse lg:flex-row w-full">
               <div
