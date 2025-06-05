@@ -6,9 +6,7 @@ import { Marmelad } from "next/font/google";
 import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardAction,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -25,7 +23,6 @@ import {
   SpeakerWaveIcon,
   SpeakerXMarkIcon,
 } from "@heroicons/react/16/solid";
-import { Divide } from "lucide-react";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { AnimatePresence, motion } from "framer-motion";
 import BlurText from "@/components/BlurText";
@@ -55,6 +52,7 @@ export default function Home() {
   const [status, setStatus] = useState("single");
   const [soundOn, setSoundOn] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [isKaz, setIsKaz] = useState(false);
 
   const [width, setWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 0
@@ -74,8 +72,8 @@ export default function Home() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setLoaded(true);
-    }, 4000);
+      if (!loaded) setLoaded(true);
+    }, 10000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -204,16 +202,22 @@ export default function Home() {
                   <Image
                     src="/flower_final.png" // Replace with your image path
                     alt="Description of image"
-                    width={isMobile ? 250 : 450}
+                    width={isMobile ? 200 : 450}
                     height={520}
                     className="object-cover"
-                    priority
                   />
                 </div>
                 <div className="flex flex-col items-center lg:items-start">
-                  {/* <p className="text-2xl">Разделите счастье с нами!</p> */}
-                  <SplitText
-                    text="Разделите счастье с нами!"
+                  <p className="text-xl font-bold">
+                    {isKaz ? "Құрметті қонақ," : "Дорогой гость,"}
+                  </p>
+                  <p className="text-xl font-bold mb-2">
+                    {isKaz
+                      ? "Мақта мен Әлішер cізді тойға шақырады!"
+                      : "Макта и Алишер приглашают Вас на свадьбу!"}
+                  </p>
+                  {/* <SplitText
+                    text={"Қуанышымызды бізбен бөлісіңіздер!"}
                     className="text-2xl"
                     delay={50}
                     duration={0.1}
@@ -225,7 +229,7 @@ export default function Home() {
                     rootMargin="-100px"
                     textAlign="center"
                     // onLetterAnimationComplete={handleAnimationComplete}
-                  />
+                  /> */}
                   {/* <h1
                     className={`lg:text-9xl text-center lg:text-left text-8xl text-[#A15A4D] 
                   mb-4 mt-6 leading-28 ${greatVibes.className}`}
@@ -248,7 +252,7 @@ export default function Home() {
                 cursor-pointer hover:bg-[#636c44]"
                     >
                       <a href="#venue" className="anchor">
-                        Детали торжества
+                        {isKaz ? "Тойдың ақпараты" : "Детали торжества"}
                       </a>
                     </button>
                     <button
@@ -256,7 +260,9 @@ export default function Home() {
                 cursor-pointer hover:bg-[#636c44]"
                     >
                       <a href="#response" className="anchor">
-                        Ответить на приглашение
+                        {isKaz
+                          ? "Қатысатыңызды растаңыз"
+                          : "Ответить на приглашение"}
                       </a>
                     </button>
                   </div>
@@ -277,12 +283,32 @@ export default function Home() {
                     <ChevronDownIcon className="h-16 animate-bounce text-white" />
                   </div>
                 )}
+                <div className="absolute flex flex-row gap-2 z-20 right-4 top-4">
+                  <div
+                    className={`rounded-2xl px-4  border-2 cursor-pointer hover:bg-[#efe4e2]
+                    border-[#A15A4D] text-[#A15A4D] font-bold text-xl ${
+                      isKaz ? "bg-background" : ""
+                    }`}
+                    onClick={() => setIsKaz(true)}
+                  >
+                    Қаз
+                  </div>
+                  <div
+                    className={`rounded-2xl px-4  border-2 cursor-pointer hover:bg-[#efe4e2]
+                    border-[#A15A4D] text-[#A15A4D] font-bold text-xl ${
+                      !isKaz ? "bg-background" : ""
+                    }`}
+                    onClick={() => setIsKaz(false)}
+                  >
+                    Рус
+                  </div>
+                </div>
                 <Image
                   src="/IMG_7887.jpg" // Replace with your image path
                   alt="Description of image"
                   fill
                   className="object-cover"
-                  priority
+                  onLoad={() => setLoaded(true)}
                 />
               </motion.div>
             </div>
@@ -298,7 +324,6 @@ export default function Home() {
                     width={isMobile ? 300 : 450}
                     height={520}
                     className="object-cover"
-                    priority
                   />
                 </div>
                 <div className="flex flex-col justify-center items-center w-full h-full">
@@ -307,7 +332,9 @@ export default function Home() {
                       <CardTitle
                         className={`text-4xl text-[#A15A4D] text-center ${greatVibes.className}`}
                       >
-                        Ответить на приглашение
+                        {isKaz
+                          ? "Тойға келесіз бе?"
+                          : "Ответить на приглашение"}
                       </CardTitle>
                       {/* <CardDescription>
                   Enter your email below to login to your account
@@ -320,11 +347,15 @@ export default function Home() {
                       <form onSubmit={handlePost}>
                         <div className="flex flex-col gap-6">
                           <div className="grid gap-2">
-                            <Label htmlFor="name">Ваше имя</Label>
+                            <Label htmlFor="name">
+                              {isKaz ? "Аты-жөніңіз:" : "Ваше имя"}
+                            </Label>
                             <Input
                               id="name"
                               type="text"
-                              placeholder="Фамилия Имя"
+                              placeholder={
+                                isKaz ? "Аты-жөніңіз" : "Фамилия Имя"
+                              }
                               required
                               value={name}
                               onChange={(e) => setName(e.target.value)}
@@ -341,7 +372,11 @@ export default function Home() {
                                 id="r1"
                                 checked={status === "single"}
                               />
-                              <Label htmlFor="r1">Я приду один(-на)</Label>
+                              <Label htmlFor="r1">
+                                {isKaz
+                                  ? "Ия, жалғыз өзім келемін"
+                                  : "Я приду один(-на)"}
+                              </Label>
                             </div>
                             <div className="flex items-center gap-3">
                               <RadioGroupItem
@@ -350,7 +385,9 @@ export default function Home() {
                                 checked={status === "plus"}
                               />
                               <Label htmlFor="r2">
-                                Я приду с супругой(-ом)
+                                {isKaz
+                                  ? "Ия, жұбайыммен келемін"
+                                  : "Я приду с супругой(-ом)"}
                               </Label>
                             </div>
                             <div className="flex items-center gap-3">
@@ -359,7 +396,11 @@ export default function Home() {
                                 id="r3"
                                 checked={status === "cannot"}
                               />
-                              <Label htmlFor="r3">Я не смогу придти</Label>
+                              <Label htmlFor="r3">
+                                {isKaz
+                                  ? "Өкінішке орай келе алмаймын"
+                                  : "Я не смогу придти"}
+                              </Label>
                             </div>
                           </RadioGroup>
                         </div>
@@ -371,7 +412,7 @@ export default function Home() {
                         className="w-full"
                         onClick={handlePost}
                       >
-                        Отправить ответ
+                        {isKaz ? "Жауапты жіберу" : "Отправить ответ"}
                       </Button>
                     </CardFooter>
                   </Card>
@@ -398,7 +439,7 @@ export default function Home() {
                 <p
                   className={`text-6xl text-center text-[#A15A4D] ${greatVibes.className} lg:mt-8`}
                 >
-                  Детали торжества
+                  {isKaz ? "Тойдың ақпараты" : "Детали торжества"}
                 </p>
 
                 <div className="w-full h-full flex flex-col gap-4 lg:text-xl text-lg">
@@ -413,24 +454,39 @@ export default function Home() {
                         width={250}
                         height={520}
                         className="object-cover"
-                        priority
                       />
                     </div>
                     <p>
-                      <span className="font-bold">Дата:</span> 22 августа 2025
-                      года (пятница)
+                      <span className="font-bold">
+                        {isKaz ? "Той күні:" : "Дата:"}
+                      </span>{" "}
+                      {isKaz
+                        ? "22 тамыз, 2025 жыл"
+                        : "22 августа 2025 года (пятница)"}
                     </p>
                     <p>
-                      <span className="font-bold">Время:</span> 17:00
+                      <span className="font-bold">
+                        {isKaz ? "Уақыты:" : "Время:"}
+                      </span>{" "}
+                      15:00
                     </p>
                     <div>
                       <p>
-                        <span className="font-bold">Место проведения:</span>{" "}
-                        Duman ​(Банкетный зал)
+                        <span className="font-bold">
+                          {isKaz ? "Мекенжайы:" : "Место проведения:"}
+                        </span>{" "}
+                        {isKaz
+                          ? "Duman мейрамханасы"
+                          : "Duman ​(Банкетный зал)"}
                       </p>
-                      <p>город Караганда, улица Гапеева, 37​</p>
                       <p>
-                        2gis ссылка:{" "}
+                        {isKaz
+                          ? "Қарағанды қаласы, Гапеева көшесі, 37"
+                          : "город Караганда, улица Гапеева, 37"}
+                        ​
+                      </p>
+                      <p>
+                        {isKaz ? "2gis сілтемесі: " : "2gis ссылка: "}
                         <a href={"https://go.2gis.com/HuLiN"} target="_blank">
                           <span className="text-red-950">
                             https://go.2gis.com/HuLiN
@@ -446,25 +502,24 @@ export default function Home() {
                         alt="Description of image"
                         fill
                         className="object-cover rounded-2xl p-1"
-                        priority
                       />
                     </div>
-                    <div className="w-full lg:h-1/4 h-1/3 relative border-2 rounded-2xl border-[#e9a89c]">
-                      <Image
-                        src="/duman_inside.png" // Replace with your image path
-                        alt="Description of image"
-                        fill
-                        className="object-cover rounded-2xl p-1"
-                        priority
-                      />
-                    </div>
-                    <div className="w-full lg:h-1/4 h-1/3 relative border-2 rounded-2xl border-[#e9a89c]">
+                    {!isMobile && (
+                      <div className="w-full lg:h-1/4 h-1/2 relative border-2 rounded-2xl border-[#e9a89c]">
+                        <Image
+                          src="/duman_inside.png" // Replace with your image path
+                          alt="Description of image"
+                          fill
+                          className="object-cover rounded-2xl p-1"
+                        />
+                      </div>
+                    )}
+                    <div className="w-full lg:h-1/4 h-1/2 relative border-2 rounded-2xl border-[#e9a89c]">
                       <Image
                         src="/duman.png" // Replace with your image path
                         alt="Description of image"
                         fill
                         className="object-cover rounded-2xl p-1"
-                        priority
                       />
                     </div>
                   </div>
