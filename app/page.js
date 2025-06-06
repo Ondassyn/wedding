@@ -29,6 +29,7 @@ import BlurText from "@/components/BlurText";
 import SplitText from "@/components/SplitText";
 import ringsAnimation from "@/public/rings.json";
 import Lottie from "lottie-react";
+import ShiftingCountdown from "@/components/Countdown";
 gsap.registerPlugin(ScrollToPlugin);
 
 const APP_URL =
@@ -174,7 +175,7 @@ export default function Home() {
               />
             </div>
             <div
-              className="absolute top-12 left-12 z-10 cursor-pointer"
+              className="absolute lg:top-12 lg:left-12 top-10 left-10 z-10 cursor-pointer"
               onClick={() => {
                 if (!soundOn) {
                   audioRef.current.volume = 0.5;
@@ -187,9 +188,9 @@ export default function Home() {
             >
               <audio ref={audioRef} src="/song.mp3" />
               {soundOn ? (
-                <SpeakerWaveIcon className="h-8" />
+                <SpeakerWaveIcon className="lg:h-8 h-6" />
               ) : (
-                <SpeakerXMarkIcon className="h-8" />
+                <SpeakerXMarkIcon className="lg:h-8 h-6" />
               )}
             </div>
             <div className="flex flex-col-reverse lg:flex-row lg:h-screen h-full w-full">
@@ -199,19 +200,21 @@ export default function Home() {
                 className="panel lg:w-1/2 w-full h-screen flex items-center justify-center p-8 relative"
               >
                 <div className="w-auto absolute top-0 right-0 h-1/4 -z-10">
-                  <Image
-                    src="/flower_final.png" // Replace with your image path
-                    alt="Description of image"
-                    width={isMobile ? 200 : 450}
-                    height={520}
-                    className="object-cover"
-                  />
+                  {!isMobile && (
+                    <Image
+                      src="/flower_final.png" // Replace with your image path
+                      alt="Description of image"
+                      width={isMobile ? 200 : 450}
+                      height={520}
+                      className="object-cover"
+                    />
+                  )}
                 </div>
                 <div className="flex flex-col items-center lg:items-start">
                   <p className="text-xl font-bold">
                     {isKaz ? "Құрметті қонақ," : "Дорогой гость,"}
                   </p>
-                  <p className="text-xl font-bold mb-2">
+                  <p className="text-xl text-center font-bold mb-2">
                     {isKaz
                       ? "Мақта мен Әлішер cізді тойға шақырады!"
                       : "Макта и Алишер приглашают Вас на свадьбу!"}
@@ -243,8 +246,8 @@ export default function Home() {
                     animateBy="words"
                     direction="top"
                     // onAnimationComplete={handleAnimationComplete}
-                    className={`lg:text-9xl text-center lg:text-left text-8xl text-[#A15A4D] 
-                  mb-4 mt-6 leading-28 ${greatVibes.className}`}
+                    className={`lg:text-9xl text-center lg:text-left text-7xl text-[#A15A4D] 
+                  mb-4 mt-6 lg:leading-28 ${greatVibes.className}`}
                   />
                   <div className="flex flex-col gap-x-4 lg:flex-row">
                     <button
@@ -302,6 +305,10 @@ export default function Home() {
                   >
                     Рус
                   </div>
+                </div>
+
+                <div className="absolute top-20 z-20 w-full px-8">
+                  <ShiftingCountdown />
                 </div>
                 <Image
                   src="/IMG_7887.jpg" // Replace with your image path
@@ -437,7 +444,7 @@ export default function Home() {
                   </div>
                 )}
                 <p
-                  className={`text-6xl text-center text-[#A15A4D] ${greatVibes.className} lg:mt-8`}
+                  className={`lg:text-6xl text-4xl text-center text-[#A15A4D] ${greatVibes.className} lg:mt-8`}
                 >
                   {isKaz ? "Тойдың ақпараты" : "Детали торжества"}
                 </p>
