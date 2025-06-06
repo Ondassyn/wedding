@@ -204,7 +204,7 @@ export default function Home() {
                     <Image
                       src="/flower_final.png" // Replace with your image path
                       alt="Description of image"
-                      width={isMobile ? 200 : 450}
+                      width={isMobile ? 200 : 300}
                       height={520}
                       className="object-cover"
                     />
@@ -307,7 +307,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="absolute top-20 z-20 w-full px-8">
+                <div className="absolute top-16 z-20 w-full px-8">
                   <ShiftingCountdown isKaz={isKaz} />
                 </div>
                 <Image
@@ -502,8 +502,8 @@ export default function Home() {
                       </p>
                     </div>
                   </div>
-                  <div className="h-full w-full flex flex-col justify-center gap-4">
-                    <div className="w-full lg:h-1/4 h-1/3 relative border-2 rounded-2xl border-[#e9a89c]">
+                  <div className="h-full w-full pb-8 flex flex-col justify-center gap-4">
+                    <div className="w-full h-1/2 relative border-2 rounded-2xl border-[#e9a89c]">
                       <Image
                         src="/duman_wideshot.png" // Replace with your image path
                         alt="Description of image"
@@ -511,7 +511,7 @@ export default function Home() {
                         className="object-cover rounded-2xl p-1"
                       />
                     </div>
-                    {!isMobile && (
+                    {/* {!isMobile && (
                       <div className="w-full lg:h-1/4 h-1/2 relative border-2 rounded-2xl border-[#e9a89c]">
                         <Image
                           src="/duman_inside.png" // Replace with your image path
@@ -520,8 +520,8 @@ export default function Home() {
                           className="object-cover rounded-2xl p-1"
                         />
                       </div>
-                    )}
-                    <div className="w-full lg:h-1/4 h-1/2 relative border-2 rounded-2xl border-[#e9a89c]">
+                    )} */}
+                    <div className="w-full h-1/2 relative border-2 rounded-2xl border-[#e9a89c]">
                       <Image
                         src="/duman.png" // Replace with your image path
                         alt="Description of image"
