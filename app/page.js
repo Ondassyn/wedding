@@ -54,6 +54,7 @@ export default function Home() {
   const [soundOn, setSoundOn] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [isKaz, setIsKaz] = useState(false);
+  const [noName, setNoName] = useState(false);
 
   const [width, setWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 0
@@ -113,6 +114,11 @@ export default function Home() {
     };
     console.log(inputValue);
 
+    if(!name.length) {
+      setNoName(true);
+      return;
+    }
+
     const formData = new FormData();
     Object.keys(inputValue).forEach((key) => {
       formData.append(key, inputValue[key]);
@@ -124,9 +130,11 @@ export default function Home() {
       });
       if (res.ok) {
         console.log("Request was successful:", res);
+        
       } else {
         console.log("Request Failed:", res);
       }
+      setNoName(false);
     } catch (e) {
       console.error("Error during fetch:", e);
     }
@@ -421,6 +429,7 @@ export default function Home() {
                       >
                         {isKaz ? "Жауапты жіберу" : "Отправить ответ"}
                       </Button>
+                      {noName && <p className="text-red-700">{isKaz ? "Аты-жөніңіз бос болмауы керек!" : "Имя не может быть пустым!"}</p>}
                     </CardFooter>
                   </Card>
                 </div>
