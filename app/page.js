@@ -246,7 +246,7 @@ export default function Home() {
                     animateBy="words"
                     direction="top"
                     // onAnimationComplete={handleAnimationComplete}
-                    className={`lg:text-9xl text-center lg:text-left text-7xl text-[#A15A4D] 
+                    className={`lg:text-9xl lg:text-left text-7xl text-[#A15A4D] 
                   mb-4 mt-6 lg:leading-28 ${greatVibes.className}`}
                   />
                   <div className="flex flex-col gap-x-4 lg:flex-row">
