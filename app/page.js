@@ -56,6 +56,26 @@ export default function Home() {
   const [isKaz, setIsKaz] = useState(false);
   const [noName, setNoName] = useState(false);
 
+  useEffect(() => {
+    if (typeof window === "undefined" || typeof document === "undefined")
+      return;
+
+    const audio = document.querySelector("audio");
+
+    const handleVisibilityChange = () => {
+      if (document.hidden && audio && !audio.paused) {
+        audio.pause();
+        setSoundOn(false);
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
+
   const [width, setWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 0
   );
@@ -114,7 +134,7 @@ export default function Home() {
     };
     console.log(inputValue);
 
-    if(!name.length) {
+    if (!name.length) {
       setNoName(true);
       return;
     }
@@ -130,7 +150,6 @@ export default function Home() {
       });
       if (res.ok) {
         console.log("Request was successful:", res);
-        
       } else {
         console.log("Request Failed:", res);
       }
@@ -224,7 +243,7 @@ export default function Home() {
                   </p>
                   <p className="text-xl text-center font-bold mb-2">
                     {isKaz
-                      ? "Мақта мен Әлішер cізді тойға шақырады!"
+                      ? "Мақта мен Әлішер Сізді тойға шақырады!"
                       : "Макта и Алишер приглашают Вас на свадьбу!"}
                   </p>
                   {/* <SplitText
@@ -290,8 +309,8 @@ export default function Home() {
                 className="lg:w-1/2 w-screen h-screen relative"
               >
                 {isMobile && (
-                  <div className="absolute bottom-16 left-[45%] z-10">
-                    <ChevronDownIcon className="h-16 animate-bounce text-white" />
+                  <div className="absolute bottom-16 left-[35%] z-10">
+                    <ChevronDownIcon className="h-32 animate-bounce text-amber-900" />
                   </div>
                 )}
                 <div className="absolute flex flex-row gap-2 z-20 right-4 top-4">
@@ -429,7 +448,13 @@ export default function Home() {
                       >
                         {isKaz ? "Жауапты жіберу" : "Отправить ответ"}
                       </Button>
-                      {noName && <p className="text-red-700">{isKaz ? "Аты-жөніңіз бос болмауы керек!" : "Имя не может быть пустым!"}</p>}
+                      {noName && (
+                        <p className="text-red-700">
+                          {isKaz
+                            ? "Аты-жөніңіз бос болмауы керек!"
+                            : "Имя не может быть пустым!"}
+                        </p>
+                      )}
                     </CardFooter>
                   </Card>
                 </div>
@@ -477,7 +502,7 @@ export default function Home() {
                         {isKaz ? "Той күні:" : "Дата:"}
                       </span>{" "}
                       {isKaz
-                        ? "22 тамыз, 2025 жыл"
+                        ? "22 тамыз, 2025 жы (жұма)"
                         : "22 августа 2025 года (пятница)"}
                     </p>
                     <p>
@@ -492,8 +517,8 @@ export default function Home() {
                           {isKaz ? "Мекенжайы:" : "Место проведения:"}
                         </span>{" "}
                         {isKaz
-                          ? "Duman мейрамханасы"
-                          : "Duman ​(Банкетный зал)"}
+                          ? "Duman мейрамханасы (Алтын зал))"
+                          : "Duman ​(Золотой зал)"}
                       </p>
                       <p>
                         {isKaz
