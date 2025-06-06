@@ -282,7 +282,7 @@ export default function Home() {
                 className="lg:w-1/2 w-screen h-screen relative"
               >
                 {isMobile && (
-                  <div className="absolute bottom-0 left-[45%] z-10">
+                  <div className="absolute bottom-16 left-[45%] z-10">
                     <ChevronDownIcon className="h-16 animate-bounce text-white" />
                   </div>
                 )}
@@ -308,7 +308,7 @@ export default function Home() {
                 </div>
 
                 <div className="absolute top-20 z-20 w-full px-8">
-                  <ShiftingCountdown />
+                  <ShiftingCountdown isKaz={isKaz} />
                 </div>
                 <Image
                   src="/IMG_7887.jpg" // Replace with your image path
@@ -333,7 +333,7 @@ export default function Home() {
                     className="object-cover"
                   />
                 </div>
-                <div className="flex flex-col justify-center items-center w-full h-full">
+                <div className="flex flex-col justify-center items-center w-full h-full px-2">
                   <Card className="w-full max-w-sm">
                     <CardHeader>
                       <CardTitle

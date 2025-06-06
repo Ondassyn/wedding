@@ -9,14 +9,14 @@ const MINUTE = SECOND * 60;
 const HOUR = MINUTE * 60;
 const DAY = HOUR * 24;
 
-const ShiftingCountdown = () => {
+const ShiftingCountdown = ({ isKaz }) => {
   return (
     <div className=" p-4">
       <div className="mx-auto flex w-full max-w-5xl items-center">
-        <CountdownItem unit="Day" text="days" />
-        <CountdownItem unit="Hour" text="hours" />
-        <CountdownItem unit="Minute" text="minutes" />
-        <CountdownItem unit="Second" text="seconds" />
+        <CountdownItem unit="Day" text={isKaz ? "күн" : "дней"} />
+        <CountdownItem unit="Hour" text={isKaz ? "сағат" : "часов"} />
+        <CountdownItem unit="Minute" text={isKaz ? "минут" : "минут"} />
+        <CountdownItem unit="Second" text={isKaz ? "секунд" : "секунд"} />
       </div>
     </div>
   );
@@ -26,7 +26,7 @@ const CountdownItem = ({ unit, text }) => {
   const { ref, time } = useTimer(unit);
 
   return (
-    <div className="flex h-24 w-1/4 flex-col items-center justify-center gap-1 border-r-[1px] border-[#d0aea7] font-mono md:h-36 md:gap-2">
+    <div className="flex h-24 w-1/4 flex-col items-center justify-center gap-1 border-r-[1px] border-[#d0aea7] md:h-36 md:gap-2">
       <div className="relative w-full overflow-hidden text-center">
         <span
           ref={ref}
