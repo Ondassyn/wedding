@@ -19,6 +19,7 @@ import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 import CircularText from "@/components/CircularText";
 import {
+  CheckIcon,
   ChevronDownIcon,
   SpeakerWaveIcon,
   SpeakerXMarkIcon,
@@ -30,6 +31,7 @@ import SplitText from "@/components/SplitText";
 import ringsAnimation from "@/public/rings.json";
 import Lottie from "lottie-react";
 import ShiftingCountdown from "@/components/Countdown";
+import { Loader2Icon } from "lucide-react";
 gsap.registerPlugin(ScrollToPlugin);
 
 const APP_URL =
@@ -55,6 +57,8 @@ export default function Home() {
   const [loaded, setLoaded] = useState(false);
   const [isKaz, setIsKaz] = useState(false);
   const [noName, setNoName] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined" || typeof document === "undefined")
@@ -143,6 +147,7 @@ export default function Home() {
     Object.keys(inputValue).forEach((key) => {
       formData.append(key, inputValue[key]);
     });
+    setLoading(true);
     try {
       const res = await fetch(APP_URL, {
         method: "POST",
@@ -150,12 +155,15 @@ export default function Home() {
       });
       if (res.ok) {
         console.log("Request was successful:", res);
+        setSubmitted(true);
       } else {
         console.log("Request Failed:", res);
       }
       setNoName(false);
     } catch (e) {
       console.error("Error during fetch:", e);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -445,8 +453,22 @@ export default function Home() {
                         type="submit"
                         className="w-full"
                         onClick={handlePost}
+                        disabled={submitted}
                       >
-                        {isKaz ? "Жауапты жіберу" : "Отправить ответ"}
+                        {submitted && <CheckIcon className="h-5" />}
+                        {loading ? (
+                          <Loader2Icon className="animate-spin" />
+                        ) : submitted ? (
+                          isKaz ? (
+                            "Жіберілді"
+                          ) : (
+                            "Отправлено"
+                          )
+                        ) : isKaz ? (
+                          "Жауапты жіберу"
+                        ) : (
+                          "Отправить ответ"
+                        )}
                       </Button>
                       {noName && (
                         <p className="text-red-700">
