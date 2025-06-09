@@ -299,7 +299,7 @@ export default function Home() {
                     >
                       <a href="#response" className="anchor">
                         {isKaz
-                          ? "Қатысатыңызды растаңыз"
+                          ? "Қатысатыныңызды растаңыз"
                           : "Ответить на приглашение"}
                       </a>
                     </button>
@@ -539,7 +539,7 @@ export default function Home() {
                           {isKaz ? "Мекенжайы:" : "Место проведения:"}
                         </span>{" "}
                         {isKaz
-                          ? "Duman мейрамханасы (Алтын зал))"
+                          ? "Duman мейрамханасы (Алтын зал)"
                           : "Duman ​(Золотой зал)"}
                       </p>
                       <p>
