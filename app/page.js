@@ -441,7 +441,7 @@ export default function Home() {
                               <Label htmlFor="r3">
                                 {isKaz
                                   ? "Өкінішке орай келе алмаймын"
-                                  : "Я не смогу придти"}
+                                  : "Я не смогу прийти"}
                               </Label>
                             </div>
                           </RadioGroup>
